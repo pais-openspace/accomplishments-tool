@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pais-accomplishments-tool"
-version = "1.0.0"
+version = "1.0.1"
 description = "A small tool for generating and transformation accomplishments from BibTex format files"
 authors = [
     "Roman Lupashko <mossy0.civets@icloud.com>",
