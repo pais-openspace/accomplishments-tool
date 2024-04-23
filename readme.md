@@ -3,6 +3,8 @@
 ## About
 A small tool for generating and transformation accomplishments from BibTex format files.
 
+## Homepage
+PYPI: https://pypi.org/project/pais-accomplishments-tool/
 
 ## Quick start
 
@@ -10,13 +12,13 @@ A small tool for generating and transformation accomplishments from BibTex forma
 
 For install package run it.
 ```shell
-pip install [package_name]
+pip install pais-accomplishments-tool
 ```
 
 ### Upgrade
 For upgrade tools to latest version run it
 ```shell
-pip install [package_name] --upgrade
+pip install pais-accomplishments-tool --upgrade
 ```
 
 ### Dependencies
@@ -45,13 +47,13 @@ export PATH="/path/to/package:$PATH"
 
 ### Simple use
 #### Help
-For watch help message run [paisAccTool.py](paisAccTool.py):
+For watch help message run [paisAccTool.py](pais-accomplishments-tool/paisAccTool.py):
 ```shell
 python3 paisAccTool.py -h
 ```
 
 #### Sample
-For watch to work run [paisAccTool.py](paisAccTool.py) for [sample accomplishments file](accomplishments_sample.bib) it
+For watch to work run [paisAccTool.py](pais-accomplishments-tool/paisAccTool.py) for [sample accomplishments file](accomplishments_sample.bib) it
 ```shell
 python3 paisAccTool.py accomplishments_sample.bib -c -en
 ```

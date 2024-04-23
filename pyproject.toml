@@ -5,14 +5,15 @@ description = "A small tool for generating and transformation accomplishments fr
 authors = [
     "Roman Lupashko <mossy0.civets@icloud.com>",
 ]
+packages = [{include = "pais-accomplishments-tool"}]
 readme = "readme.md"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+    "License :: Free for non-commercial use",
     'Intended Audience :: Science/Research',
     'Intended Audience :: End Users/Desktop',
     'Topic :: Scientific/Engineering :: Information Analysis',
-    'Topic :: Text Processing :: Markup :: BibTeX'
+    'Topic :: Text Processing :: Markup'
 ]
 license = "CC-BY-NC-SA-4.0"
 repository = "https://github.com/CuberHuber/pais-accomplishments-tool"
