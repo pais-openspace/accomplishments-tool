@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "pais-accomplishments-tool"
+version = "1.0.0"
+description = "A small tool for generating and transformation accomplishments from BibTex format files"
+authors = [
+    "Roman Lupashko <mossy0.civets@icloud.com>",
+]
+readme = "readme.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: End Users/Desktop',
+    'Topic :: Scientific/Engineering :: Information Analysis',
+    'Topic :: Text Processing :: Markup :: BibTeX'
+]
+license = "CC-BY-NC-SA-4.0"
+repository = "https://github.com/CuberHuber/pais-accomplishments-tool"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+bibtexparser = "2.0.0b7"
+pymorphy3 = "2.0.1"
+pymorphy3-dicts-ru = "2.4.417150.4580142"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
