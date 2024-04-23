@@ -35,6 +35,10 @@ And the following line to the `.zshrc` with the actual path of the [package_name
 ```shell
 export PATH="/path/to/package:$PATH"
 ```
+For Python 3.15 on MacOS 14
+```shell
+export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pais-accomplishments-tool/paisAccTool.py:$PATH"
+```
 
 #### On Mac and Linux + bash
 ```shell
@@ -43,6 +47,10 @@ nano ~/.bash_profile
 And the following line to the `.bash_profile` with the actual path of the [package_name] script
 ```shell
 export PATH="/path/to/package:$PATH"
+```
+For Python 3.15 on MacOS 14
+```shell
+export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pais-accomplishments-tool/paisAccTool.py:$PATH"
 ```
 
 ### Simple use
