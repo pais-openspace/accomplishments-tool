@@ -16,13 +16,20 @@
 #
 # GitHub repository <https://github.com/CuberHuber/pais-accomplishments-tool>
 import argparse
+import dataclasses
+import os
 
 import bibtexparser
+import yaml
 import pymorphy3
 from bibtexparser import Library
 
-DEF_TEMPLATE = '{prefix} {type} {title}, {author}, {organization}, {month}.{year}'
-DEF_MORPHS = ('type', 'organization')
+
+@dataclasses.dataclass
+class KindConf:
+    key: str
+    template: str
+    morphs: tuple[str]
 
 
 def library(file) -> Library:
@@ -34,21 +41,33 @@ def library(file) -> Library:
     return bibtexparser.parse_file(file)
 
 
-def accomplishments(lib: Library, template: str, for_morphs: tuple[str]) -> list[str]:
+def config(file) -> dict[str, KindConf]:
+    _out = {}
+    with open(file, "r") as f:
+        yml = yaml.safe_load(f)
+        if yml.get('kinds'):
+            for kind, value in yml.get('kinds').items():
+                _out[kind] = (KindConf(kind, value.get('template'), value.get('morphs')))
+        else:
+            raise ValueError('No kinds found in config file')
+    return _out
+
+
+def accomplishments(lib: Library, config: dict[str, KindConf]) -> list[str]:
     """
     Generate accomplishments list from a bibtex library.
+    :param config:
     :param lib:
-    :param template:
-    :param for_morphs:
     :return:
     """
     output = []
     for entry in lib.entries:
         print(f' [ ]  {entry.entry_type} accomplishment: {entry.key}', end='\t')
         fields = {field.key: field.value for field in entry.fields}
+        cfg = config.get(entry.entry_type)
         morph = pymorphy3.MorphAnalyzer()
         for field in fields.items():
-            if field[0] in for_morphs:
+            if field[0] in cfg.morphs:
                 res = []
                 for word in field[1].split():
                     try:
@@ -60,7 +79,7 @@ def accomplishments(lib: Library, template: str, for_morphs: tuple[str]) -> list
                     except:
                         res.append(word)
                 fields[field[0]] = ' '.join(res)
-        output.append(template.format(**fields))
+        output.append(cfg.template.format(**fields))
         print('done')
     return output
 
@@ -74,10 +93,10 @@ def formatting(_accomplishments: list[str], _is_capitalize: bool, _is_enumerate:
     :return:
     """
     if _is_capitalize:
-        _accomplishments = [acc[0].capitalize()+acc[1:] for acc in _accomplishments]
+        _accomplishments = [acc[0].capitalize() + acc[1:] for acc in _accomplishments]
 
     if _is_enumerate:
-        _accomplishments = [f'{i+1}. {acc}' for i, acc in enumerate(_accomplishments)]
+        _accomplishments = [f'{i + 1}. {acc}' for i, acc in enumerate(_accomplishments)]
 
     return _accomplishments
 
@@ -103,37 +122,33 @@ def parameters() -> tuple:
     # Add arguments
     parser.add_argument('source', help='Path to source .bib file')
     parser.add_argument('-d', '--destination', required=False, help='Path to destination .bib file')
-    parser.add_argument('-t', '--template', required=False,
-                        help='A template string for generating accomplishment string. '
-                             'Default: ' + DEF_TEMPLATE)
-    parser.add_argument('-m', '--morphs', required=False, nargs='+',
-                        help=f'A list of fields for morphological transformations. '
-                             f'Default: {DEF_MORPHS}')
+    parser.add_argument('--config', required=False, help='Path to config.yml file')
     parser.add_argument('-c', '--capitalize', default=False, help=f'Flag', action='store_true')
     parser.add_argument('-en', '--enumerate', default=False, help=f'Flag', action='store_true')
     # Parse the arguments
     args = parser.parse_args()
 
-    template = args.template if args.template else DEF_TEMPLATE
-    morphs = tuple(args.morphs) if args.morphs else DEF_MORPHS
     if args.source is None:
         raise FileNotFoundError('Source path is required')
 
-    return template, morphs, args.source, args.destination, bool(args.capitalize), bool(args.enumerate)
+    if args.config is None:
+        _config = os.path.dirname(__file__) + '/config.default.yml'
+    else:
+        _config = str(args.config)
+
+    return _config, args.source, args.destination, bool(args.capitalize), bool(args.enumerate)
 
 
 def hello():
     print("""Hello everyone!
 This is the micro tools for contain and formating accomplishments from BibTex source""")
 
-
 if __name__ == '__main__':
-    template, morphs, source, destination, is_capitalize, is_enumerate = parameters()
+    _config_file, source, destination, is_capitalize, is_enumerate = parameters()
     hello()
-    accs = accomplishments(library(source), template, morphs)
+    accs = accomplishments(library(source), config(_config_file))
     accs = formatting(accs, is_capitalize, is_enumerate)
     if destination:
         save(accs, destination)
     else:
         print(*accs, sep='\n\r')
-

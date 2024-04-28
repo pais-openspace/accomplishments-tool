@@ -8,6 +8,12 @@ PYPI: https://pypi.org/project/pais-accomplishments-tool/
 
 ## Quick start
 
+### Table of Contents
+- [Install](#install)
+- [Simple usage](#simple-usage)
+- [Accomplishments format](#accomplishments-format)
+- [Config format](#config-file)
+
 ### Install
 
 For install package run it.
@@ -21,10 +27,6 @@ For upgrade tools to latest version run it
 pip install pais-accomplishments-tool --upgrade
 ```
 
-### Dependencies
-
-
-
 ### Add to PATH
 
 #### On Mac + zsh
@@ -35,7 +37,7 @@ And the following line to the `.zshrc` with the actual path of the [package_name
 ```shell
 export PATH="/path/to/package:$PATH"
 ```
-For Python 3.15 on MacOS 14
+For Python 3.11.5 on MacOS 14
 ```shell
 export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pais-accomplishments-tool/paisAccTool.py:$PATH"
 ```
@@ -48,12 +50,12 @@ And the following line to the `.bash_profile` with the actual path of the [packa
 ```shell
 export PATH="/path/to/package:$PATH"
 ```
-For Python 3.15 on MacOS 14
+For Python 3.11.5 on MacOS 14
 ```shell
 export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pais-accomplishments-tool/paisAccTool.py:$PATH"
 ```
 
-### Simple use
+### Simple usage
 #### Help
 For watch help message run [paisAccTool.py](pais-accomplishments-tool/paisAccTool.py):
 ```shell
@@ -73,24 +75,25 @@ This is the micro tools for contain and formating accomplishments from BibTex so
  [ ]  misc accomplishment: rand2        done
  [ ]  misc accomplishment: rand3        done
  [ ]  misc accomplishment: rand4        done
-1. Наставник образовательной программы Звездный путь.Зима, Иван Иванов, Московского государственного университета, 2.2023
-2. Наставник образовательной программы Тёмная материя.Весна, Мария Петрова, Санкт-петербургского государственного университета, 4.2023
-3. Победитель образовательной программы Космос.Лето, Алексей Сидоров, Новосибирского государственного университета, 6.2023
-4. Участник олимпиады искусственный интеллект.Осень, Екатерина Кузнецова, Томского государственного университета, 9.2023
-
+ [ ]  conf accomplishment: conf1        done
+1. Наставник образовательной программы Звездный путь.Зима, разработка системы автоматизированного тестирования : Московского государственного университета : 15.02.2023
+2. Наставник образовательной программы Тёмная материя.Весна, Разработка системы машинного обучения : Санкт-петербургского государственного университета : 2023-04-10 00:00:00
+3. Победитель образовательной программы Космос.Лето, Разработка системы компьютерного зрения : Новосибирского государственного университета : 2023-06-20 00:00:00
+4. Участник олимпиады искусственный интеллект.Осень, Разработка системы естественного языка : Томского государственного университета : 2023-09-15 00:00:00
+5. Публикация "Система NLP для марсианского языка" : Екатерина Кузнецова : Студенческая конференция Масла и Камня, Банка Китая : 11.04.2023
 ```
 #### Common usage format
 ```shell
 python3 paisAccTool.py <source .bib file> [-d <destination>, -t "template string", -m "field" "for" "transformation", -c, -en]
 ```
 
--
-- `-t "template"` contain a python string template that will be used to generate the list of accomplishments. **Important, a template can only contain the bibtex field names of an object**;
-- `-m <"words", " " ..>` contain bibtex fields of the object, which are required to be put in the gent case;
+- `--config` path to config file.
 - `-c` mean that each new entry will start with a capital letter;
 - `-en` mean that the list of accomplishments will be output with numbering.
 
 ```shell
+usage: paisAccTool.py [-h] [-d DESTINATION] [--config CONFIG] [-c] [-en] source
+
 The micro tools for contain and formating accomplishments from BibTex source
 
 positional arguments:
@@ -100,12 +103,10 @@ options:
   -h, --help            show this help message and exit
   -d DESTINATION, --destination DESTINATION
                         Path to destination .bib file
-  -t TEMPLATE, --template TEMPLATE
-                        A template string for generating accomplishment string. Default: {prefix} {type} {title}, {author}, {organization}, {month}.{year}
-  -m MORPHS [MORPHS ...], --morphs MORPHS [MORPHS ...]
-                        A list of fields for morphological transformations. Default: ('type', 'organization')
+  --config CONFIG       Path to config.yml file
   -c, --capitalize      Flag
   -en, --enumerate      Flag
+
 
 ```
 
@@ -115,20 +116,16 @@ Command to output the list of accomplishments to a file
 python3 paisAccTool.py accomplishments_sample.bib -c -en -d output.txt
 ```
 
-Command with its own output template
+Command with its own custom config. You can make a config file along the [sample](#config-file).
 ```shell
-python3 paisAccTool.py accomplishments_sample.bib -t "{prefix} {type} {title}, {author}, {organization}, {location} {start}-{end}"
-```
-
-Command with its own morphological transformations fields
-```shell
-python3 paisAccTool.py accomplishments_sample.bib -m "title", "author", "type"
+python3 paisAccTool.py accomplishments_sample.bib --config /path/to/config.yml
 ```
 
 ### Accomplishments format
 
 Each accomplishment is stored in a .bib file in bibtex format.
-Below are the fields that are used to store achievements:
+
+**Below are the fields that are used to store misc achievements.**
 ```bibtex
 @misc{identifier,
 	prefix = {Твоя роль на мероприятии},
@@ -147,9 +144,53 @@ Below are the fields that are used to store achievements:
 	order = {место в конкурсе или статус на мероприятии}
 }
 ```
+**Below are the fields that are used to store conf achievements.**
+```bibtex
+@conf{conf1,
+	prefix = {публикация},
+	title = {Студенческая конференция Масла и Камня},
+	type = {конференция},
+	author = {Екатерина Кузнецова},
+	organization = {Банк Китая},
+	topic = {Система NLP для марсианского языка},
+	section = {},
+	location = {Зотеро},
+	url = {some url},
+	start = {11.04.2023},
+	end = {15.04.2023},
+	year = {2023},
+	month = {4},
+	certificate = {сборник},
+	order = {}
+}
+```
 If you do not have a field to enter your specific information, you can add such a field:
 ```bibtex
     <key> = {value}
 ```
 The Accomplishments.bib file can be stored locally on your pc or in a remote git repository, so every commit means a new achievement (very convenient).
 
+### Config file
+The Config file represent as a yaml file.
+Its format:
+```yaml
+kinds:
+  <entry_type>:
+    template: 'template string'
+    morphs:
+      - <field 1>
+      - <field 2>
+```
+For example, you can look on the default config:
+```yaml
+kinds:
+  misc:
+    template: '{prefix} {type} {title}, {section} : {organization} : {start}'
+    morphs:
+      - type
+      - organization
+  conf:
+    template: '{prefix} "{topic}" : {author} : {title}, {organization} : {start}'
+    morphs:
+      - organization
+```

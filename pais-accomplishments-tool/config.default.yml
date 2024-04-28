@@ -1,0 +1,10 @@
+kinds:
+  misc:
+    template: '{prefix} {type} {title}, {section} : {organization} : {start}'
+    morphs:
+      - type
+      - organization
+  conf:
+    template: '{prefix} "{topic}" : {author} : {title}, {organization} : {start}'
+    morphs:
+      - organization

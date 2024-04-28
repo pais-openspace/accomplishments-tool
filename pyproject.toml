@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pais-accomplishments-tool"
-version = "1.0.1"
+version = "1.2.0"
 description = "A small tool for generating and transformation accomplishments from BibTex format files"
 authors = [
     "Roman Lupashko <mossy0.civets@icloud.com>",
@@ -23,6 +23,7 @@ python = "^3.11"
 bibtexparser = "2.0.0b7"
 pymorphy3 = "2.0.1"
 pymorphy3-dicts-ru = "2.4.417150.4580142"
+pyyaml = "^6.0.1"
 
 [build-system]
 requires = ["poetry-core"]
