@@ -180,6 +180,9 @@ kinds:
     morphs:
       - <field 1>
       - <field 2>
+sort:
+  field: <key of field>
+  reversed: <boolean>
 ```
 For example, you can look on the default config:
 ```yaml

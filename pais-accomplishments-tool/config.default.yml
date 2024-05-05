@@ -8,3 +8,6 @@ kinds:
     template: '{prefix} "{topic}" : {author} : {title}, {organization} : {start}'
     morphs:
       - organization
+sort:
+  field: start
+  reversed: true
