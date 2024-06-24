@@ -128,19 +128,20 @@ class AccomplishmentTool:
         morph = pymorphy3.MorphAnalyzer()
         for entry in self._entries:
             cfg = self._config.kind.get(entry.entry_type)
-            for field in entry.fields:
-                if field.key in cfg.morphs:
-                    res = []
-                    for word in field.value.split():
-                        try:
-                            _word = morph.parse(word.lower())[0].inflect({'gent'}).word
-                            if word[0] == _word.capitalize()[0]:
-                                res.append(_word.capitalize())
-                            else:
-                                res.append(_word)
-                        except:
-                            res.append(word)
-                    field.value = ' '.join(res)
+            if cfg.morphs:
+                for field in entry.fields:
+                    if field.key in cfg.morphs:
+                        res = []
+                        for word in field.value.split():
+                            try:
+                                _word = morph.parse(word.lower())[0].inflect({'gent'}).word
+                                if word[0] == _word.capitalize()[0]:
+                                    res.append(_word.capitalize())
+                                else:
+                                    res.append(_word)
+                            except:
+                                res.append(word)
+                        field.value = ' '.join(res)
 
     def _accomplishments(self):
         """

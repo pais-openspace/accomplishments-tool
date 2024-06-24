@@ -145,3 +145,4 @@ cython_debug/
 .pypirc
 accomplishments.bib
 export.py
+/.idea/

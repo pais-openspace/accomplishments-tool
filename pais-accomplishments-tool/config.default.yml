@@ -8,6 +8,8 @@ kinds:
     template: '{prefix} "{topic}" : {author} : {title}, {organization} : {start}'
     morphs:
       - organization
+  mastersthesis:
+    template: '{type} "{title}" : {author} : {school}, {address}, {year}'
 sort:
-  field: start
+  field: end
   reversed: true
