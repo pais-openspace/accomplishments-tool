@@ -1,4 +1,5 @@
 # PAIS Accomplishments
+[CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 
 ## About
 A small tool for generating and transformation accomplishments from BibTex format files.
