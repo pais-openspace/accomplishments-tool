@@ -58,4 +58,5 @@ if __name__ == '__main__':
     _config_file, source, destination, is_capitalize, is_enumerate = parameters()
     hello()
     params = Parameters(source, _config_file, destination, is_capitalize, is_enumerate)
-    AccomplishmentTool(params).accomplishments()
+    acc = AccomplishmentTool(params).accomplishments()
+    print(acc)

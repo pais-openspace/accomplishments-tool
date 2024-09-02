@@ -12,6 +12,14 @@ class AccGroup:
         self._entries = entries
         self._label = label
 
+    @property
+    def entries(self) -> list[AccEntry]:
+        return self._entries
+
+    @property
+    def label(self) -> str:
+        return self._label
+
     def __repr__(self) -> str:
         _out: str = ''
         if self._label:

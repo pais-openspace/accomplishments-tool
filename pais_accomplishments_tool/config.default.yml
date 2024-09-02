@@ -16,4 +16,4 @@ sort:
 group:
   is_entry_type: true
   is_field: false
-  field: ""
+  field: "organization"

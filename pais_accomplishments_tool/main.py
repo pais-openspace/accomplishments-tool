@@ -21,7 +21,8 @@ from .decorators import (
     MorphedAccomplishments,
     FormattedAccomplishments,
     Save,
-    CombineAccomplishments
+    CombineAccomplishments,
+    GroupedAccomplishments,
 )
 
 from .model.types import Parameters, Config
@@ -42,19 +43,22 @@ class AccomplishmentTool:
 
     def accomplishments(self) -> str:
         """Final accomplishments lists at String format."""
-        return str(Save(
-                    str(
-                        AccGroup(
-                            FormattedAccomplishments(
-                                MorphedAccomplishments(
-                                    SortedAccomplishments(
-                                        CombineAccomplishments(
-                                            self._library.content,
-                                            self._config.kind
-                                        ).entries, self._config.sort
-                                    ).entries, self._config
-                                ).entries, self._params
-                            ).entries
-                        )
-                    ), self._params
-                ))
+
+        out: str = ''
+        acc = CombineAccomplishments(
+            self._library.content,
+            self._config.kind
+        )
+        groups = GroupedAccomplishments(acc.entries, self._config.group).groups
+        for group in groups:
+            out += str(AccGroup(
+                FormattedAccomplishments(
+                    MorphedAccomplishments(
+                        SortedAccomplishments(
+                            group.entries, self._config.sort
+                        ).entries, self._config
+                    ).entries, self._params
+                ).entries, group.label
+            )) + '\n\n'
+
+        return str(Save(out, self._params))
