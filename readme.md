@@ -58,13 +58,13 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/s
 
 ### Simple usage
 #### Help
-For watch help message run [paisAccTool.py](pais-accomplishments-tool/paisAccTool.py):
+For watch help message run [paisAccTool.py](pais_accomplishments_tool/paisAccTool.py):
 ```shell
 python3 paisAccTool.py -h
 ```
 
 #### Sample
-For watch to work run [paisAccTool.py](pais-accomplishments-tool/paisAccTool.py) for [sample accomplishments file](accomplishments_sample.bib) it
+For watch to work run [paisAccTool.py](pais_accomplishments_tool/paisAccTool.py) for [sample accomplishments file](accomplishments_sample.bib) it
 ```shell
 python3 paisAccTool.py accomplishments_sample.bib -c -en
 ```

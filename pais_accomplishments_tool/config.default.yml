@@ -13,3 +13,7 @@ kinds:
 sort:
   field: end
   reversed: true
+group:
+  is_entry_type: true
+  is_field: false
+  field: ""
