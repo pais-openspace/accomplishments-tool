@@ -28,34 +28,6 @@ For upgrade tools to latest version run it
 pip install pais-accomplishments-tool --upgrade
 ```
 
-### Add to PATH
-
-#### On Mac + zsh
-```shell
-nano ~/.zshrc
-```
-And the following line to the `.zshrc` with the actual path of the [package_name] script
-```shell
-export PATH="/path/to/package:$PATH"
-```
-For Python 3.11.5 on MacOS 14
-```shell
-export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pais-accomplishments-tool/paisAccTool.py:$PATH"
-```
-
-#### On Mac and Linux + bash
-```shell
-nano ~/.bash_profile
-```
-And the following line to the `.bash_profile` with the actual path of the [package_name] script
-```shell
-export PATH="/path/to/package:$PATH"
-```
-For Python 3.11.5 on MacOS 14
-```shell
-export PATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pais-accomplishments-tool/paisAccTool.py:$PATH"
-```
-
 ### Simple usage
 #### Help
 For watch help message run [paisAccTool.py](pais_accomplishments_tool/paisAccTool.py):
@@ -184,6 +156,10 @@ kinds:
 sort:
   field: <key of field>
   reversed: <boolean>
+group:
+  is_entry_type: <boolean>
+  is_field: <boolean>
+  field: <key of field>
 ```
 For example, you can look on the default config:
 ```yaml
@@ -197,4 +173,11 @@ kinds:
     template: '{prefix} "{topic}" : {author} : {title}, {organization} : {start}'
     morphs:
       - organization
+sort:
+  field: end
+  reversed: true
+group:
+  is_entry_type: true
+  is_field: false
+  field: "organization"
 ```
