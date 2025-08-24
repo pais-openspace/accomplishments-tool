@@ -1,5 +1,5 @@
 # The PAIS Accomplishments - A Python Package
-# Copyright (C) 2024 Roman Lupashko <mossy0.civets@icloud.com>
+# Copyright (c) 2024-2025 Roman Lupashko <mossy0.civets@icloud.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
@@ -7,7 +7,7 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # License for the specific language governing permissions and
 # limitations under the License.
 #
